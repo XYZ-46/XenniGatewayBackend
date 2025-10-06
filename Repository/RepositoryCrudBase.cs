@@ -16,11 +16,11 @@ namespace Repository
             _set = _context.Set<TEntity>();
         }
 
-        public virtual async Task<TEntity> GetByIdAsync(Int64 id)
+        public virtual async Task<TEntity?> GetByIdAsync(Int64 id)
         {
             var entity = await _set.FindAsync(id);
-            if (entity?.Id > 0 && !entity.IsDeleted) return entity;
-            else return new TEntity();
+            if (entity!.IsDeleted) entity = new TEntity();
+            return entity;
         }
 
         public virtual async Task<TEntity> AddAsync(TEntity entity)
@@ -46,6 +46,5 @@ namespace Repository
         }
 
         public virtual async Task<IEnumerable<TEntity>> GetPagedAsync(int page, int size) => await _set.Skip((page - 1) * size).Take(size).ToListAsync();
-
     }
 }

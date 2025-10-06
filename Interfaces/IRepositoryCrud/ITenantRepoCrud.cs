@@ -4,6 +4,6 @@ namespace Interfaces.IRepositoryCrud
 {
     public interface ITenantRepoCrud : IRepositoryCrudBase<TenantModel>
     {
-        Task<TenantModel> GetByTenantNameAsync(string tenantName);
+        Task<TenantModel?> GetByTenantNameAsync(string tenantName);
     }
 }

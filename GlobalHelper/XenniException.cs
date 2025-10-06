@@ -1,4 +1,4 @@
-﻿namespace ApiService.GlobalException
+﻿namespace GlobalHelper
 {
     public class XenniException(string message, int statusCode = 400) : Exception(message)
     {

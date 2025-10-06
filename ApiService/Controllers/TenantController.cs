@@ -1,5 +1,7 @@
-﻿using Interfaces.IServices;
+﻿using DataTransferObject.Tenant;
+using Interfaces.IServices;
 using Microsoft.AspNetCore.Mvc;
+using Mapper;
 
 namespace ApiService.Controllers
 {
@@ -17,10 +19,16 @@ namespace ApiService.Controllers
             Int64 idValue;
             idValue = Int64.TryParse(Id, out idValue) ? idValue : -1;
             var tenant = await _tenantService.GetByIdAsync(idValue);
-
-            if (tenant.IsDeleted )
-
             return Ok(tenant);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Add([FromBody] AddTenantReq newTenantReq)
+        {
+
+            var newTenant = newTenantReq.MapAddTenant();
+            await _tenantService.AddUniqueTenanNameAsync(newTenant);
+            return Ok(newTenant);
         }
 
     }

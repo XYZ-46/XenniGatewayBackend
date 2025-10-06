@@ -4,13 +4,23 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Repository;
 using Services;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using Telemetry;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers(options =>
+builder.Services.AddControllers(opt =>
 {
     //options.Filters.Add<AppExceptionFilter>();
+}).AddJsonOptions(opt =>
+{
+    opt.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+    opt.JsonSerializerOptions.AllowTrailingCommas = true;
+    opt.JsonSerializerOptions.WriteIndented = true;
+    opt.JsonSerializerOptions.PropertyNamingPolicy = null;
+    opt.JsonSerializerOptions.ReadCommentHandling = JsonCommentHandling.Skip;
+    opt.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
 });
 
 builder.Services.AddOpenApi();
@@ -22,12 +32,12 @@ builder.Services.AddDIApi();
 
 builder.Services.AddDITelemetryServices();
 
-builder.Services.AddApiVersioning(options =>
+builder.Services.AddApiVersioning(opt =>
 {
-    options.DefaultApiVersion = new ApiVersion(1, 0);
-    options.AssumeDefaultVersionWhenUnspecified = true;
-    options.ReportApiVersions = true;
-    options.ApiVersionReader = new UrlSegmentApiVersionReader();
+    opt.DefaultApiVersion = new ApiVersion(1, 0);
+    opt.AssumeDefaultVersionWhenUnspecified = true;
+    opt.ReportApiVersions = true;
+    opt.ApiVersionReader = new UrlSegmentApiVersionReader();
 });
 
 var app = builder.Build();
