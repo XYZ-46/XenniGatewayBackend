@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace BaseAbstraction
+namespace Entities.Models
 {
     public abstract class BaseEntity
     {
@@ -10,12 +10,12 @@ namespace BaseAbstraction
         public Int64 Id { get; set; }
 
         public bool IsDeleted { get; set; } = false;
-        
+
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public DateTime CreatedDate { get; set; } 
-        public string CreatedBy { get; set; } = "SYSTEM";
+        public DateTime CreatedDate { get; set; }
+        public Int64 CreatedBy { get; set; } = 0; // User ID 0 for system
 
         public DateTime? UpdatedDate { get; set; }
-        public string? UpdatedBy { get; set; }
+        public Int64? UpdatedBy { get; set; } // User ID 0 for system
     }
 }

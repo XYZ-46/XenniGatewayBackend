@@ -6,22 +6,23 @@ namespace Telemetry
 {
     internal class DatabaseHealthCheck(XenniDB _xenniDB) : IHealthCheck
     {
-        public Task<HealthCheckResult> CheckHealthAsync(HealthCheckContext context, CancellationToken cancellationToken = default)
+        public async Task<HealthCheckResult> CheckHealthAsync(HealthCheckContext context, CancellationToken cancellationToken = default)
         {
             var _state = HealthCheckResult.Healthy();
             try
             {
                 using var cmd = _xenniDB.Database.GetDbConnection().CreateCommand();
                 cmd.CommandText = "select 1";
-                _xenniDB.Database.OpenConnectionAsync(cancellationToken).Wait(cancellationToken);
-                cmd.ExecuteNonQueryAsync(cancellationToken).Wait(cancellationToken);
+                cmd.CommandType = System.Data.CommandType.Text;
+                await _xenniDB.Database.OpenConnectionAsync(cancellationToken);
+                await cmd.ExecuteNonQueryAsync(cancellationToken);
             }
-            catch 
+            catch
             {
                 _state = HealthCheckResult.Unhealthy();
             }
 
-            return Task.FromResult(_state);
+            return _state;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Entities.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure
 {
@@ -8,5 +9,7 @@ namespace Infrastructure
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
         }
+
+        public DbSet<TenantModel> TenantModel { get; set; }
     }
 }

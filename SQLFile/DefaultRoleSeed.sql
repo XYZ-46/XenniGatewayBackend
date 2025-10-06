@@ -1,0 +1,7 @@
+
+SET IDENTITY_INSERT Role ON
+
+INSERT INTO dbo.Role(id,RoleName,CreatedBy)
+SELECT 0,'SuperAdmin',0
+
+SET IDENTITY_INSERT Role OFF
