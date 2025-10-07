@@ -1,12 +1,15 @@
 ﻿using DataTransferObject.Tenant;
+using Entities.Models;
+using GlobalHelper;
 using Interfaces.IServices;
-using Microsoft.AspNetCore.Mvc;
 using Mapper;
+using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace ApiService.Controllers
 {
     [ApiVersion("1")]
-    //[ApiVersion("2")]
+    [ApiVersion("2")]
     [Route("v{version:apiVersion}/[controller]")]
     public class TenantController(ITenantService tenantService) : ControllerBase
     {
@@ -19,16 +22,20 @@ namespace ApiService.Controllers
             Int64 idValue;
             idValue = Int64.TryParse(Id, out idValue) ? idValue : -1;
             var tenant = await _tenantService.GetByIdAsync(idValue);
-            return Ok(tenant);
+            return Ok(new ApiGlobalResponse<TenantModel>(tenant));
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add([FromBody] AddTenantReq newTenantReq)
+        public async Task<IActionResult> Add()
         {
+            var jsonData = await new StreamReader(Request.Body).ReadToEndAsync();
+            var newTenantReq = JsonSerializer.Deserialize<AddTenantReq>(jsonData);
 
-            var newTenant = newTenantReq.MapAddTenant();
+
+            var newTenant = newTenantReq?.MapAddTenant();
             await _tenantService.AddUniqueTenanNameAsync(newTenant);
-            return Ok(newTenant);
+
+            return Ok(new ApiGlobalResponse<TenantModel>(newTenant));
         }
 
     }

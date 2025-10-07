@@ -1,31 +1,32 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>net10.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>f26d6b26-8144-49e2-b7f4-5edcfa035d0c</UserSecretsId>
-    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net10.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<UserSecretsId>f26d6b26-8144-49e2-b7f4-5edcfa035d0c</UserSecretsId>
+		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" />
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
-  </ItemGroup>
+		<OpenApiDocumentsDirectory>$(MSBuildProjectDirectory)</OpenApiDocumentsDirectory>
+		<OpenApiGenerateDocuments>true</OpenApiGenerateDocuments>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\DataTransferObject\DataTransferObject.csproj" />
-    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
-    <ProjectReference Include="..\Mapper\Mapper.csproj" />
-    <ProjectReference Include="..\Repository\Repository.csproj" />
-    <ProjectReference Include="..\Services\Services.csproj" />
-    <ProjectReference Include="..\Telemetry\Telemetry.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" />
+		<PackageReference Include="Microsoft.AspNetCore.OpenApi" />
+		<PackageReference Include="Scalar.AspNetCore" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Middleware\" />
-    <Folder Include="Authorizazion\" />
-    <Folder Include="Validator\" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Services\Services.csproj" />
+		<ProjectReference Include="..\Mapper\Mapper.csproj" />
+		<ProjectReference Include="..\Telemetry\Telemetry.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Folder Include="Middleware\" />
+		<Folder Include="Authorizazion\" />
+		<Folder Include="Validator\" />
+	</ItemGroup>
 
 </Project>
