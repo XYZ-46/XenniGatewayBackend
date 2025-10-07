@@ -20,6 +20,7 @@ builder.Services.AddControllers(opt =>
     opt.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
     opt.JsonSerializerOptions.AllowTrailingCommas = true;
     opt.JsonSerializerOptions.WriteIndented = true;
+    opt.JsonSerializerOptions.NumberHandling = JsonNumberHandling.AllowReadingFromString | JsonNumberHandling.WriteAsString;
     opt.JsonSerializerOptions.PropertyNamingPolicy = null;
     opt.JsonSerializerOptions.ReadCommentHandling = JsonCommentHandling.Skip;
     opt.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());

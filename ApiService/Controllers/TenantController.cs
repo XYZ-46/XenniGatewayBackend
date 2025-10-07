@@ -4,14 +4,10 @@ using GlobalHelper;
 using Interfaces.IServices;
 using Mapper;
 using Microsoft.AspNetCore.Mvc;
-using System.Text.Json;
 
 namespace ApiService.Controllers
 {
-    [ApiVersion("1")]
-    [ApiVersion("2")]
-    [Route("v{version:apiVersion}/[controller]")]
-    public class TenantController(ITenantService tenantService) : ControllerBase
+    public class TenantController(ITenantService tenantService) : BaseApiController
     {
         private readonly ITenantService _tenantService = tenantService;
 
@@ -28,9 +24,11 @@ namespace ApiService.Controllers
         [HttpPost]
         public async Task<IActionResult> Add()
         {
-            var jsonData = await new StreamReader(Request.Body).ReadToEndAsync();
-            var newTenantReq = JsonSerializer.Deserialize<AddTenantReq>(jsonData);
+            //var jsonData = await new StreamReader(Request.Body).ReadToEndAsync();
+            //var newTenantReq = JsonSerializer.Deserialize<AddTenantReq>(jsonData);
 
+            var (newTenantReq, tenantValidation) = await ValidateRequestAsync<AddTenantReq>();
+            if (!tenantValidation.IsValid) return ValidationError(tenantValidation);
 
             var newTenant = newTenantReq?.MapAddTenant();
             await _tenantService.AddUniqueTenanNameAsync(newTenant);
