@@ -17,11 +17,8 @@
         public object ToResponse()
         {
             // Flatten single errors into string, keep lists for multiple
-            var modelState = _errors.ToDictionary(
-                kv => kv.Key,
-                kv => kv.Value.Count == 1 ? (object)kv.Value[0] : kv.Value
-            );
-
+            var modelState = _errors.ToDictionary(kv => kv.Key, kv => (object)kv.Value);
+            
             return new { message = "Validation failed", modelState };
         }
     }
