@@ -12,17 +12,35 @@ namespace ApiService.Controllers
     {
         protected async Task<(T? Model, ValidationResultModel Validation)> ValidateRequestAsync<T>()
         {
-            string jsonBody = await new StreamReader(Request.Body).ReadToEndAsync();
-            var newRequest = JsonSerializer.Deserialize<T>(jsonBody);
+            string jsonBody;
+            T? newRequest;
+            var validation = new ValidationResultModel();
+            try
+            {
+                jsonBody = await new StreamReader(Request.Body).ReadToEndAsync();
+                // 1️⃣ Check duplicate keys (including nested)
+                var duplicates = JsonDuplicateKeyValidator.GetDuplicateKeys(jsonBody);
+                if (duplicates.Count > 0)
+                {
+                    foreach (var dup in duplicates) validation.AddError(dup, $"Duplicate input field '{dup}' is not allowed.");
+                    return (default, validation);
+                }
+
+                newRequest = JsonSerializer.Deserialize<T>(jsonBody);
+            }
+            catch
+            {
+                validation.AddError("Body", "Invalid or malformed JSON.");
+                return (default, validation);
+            }
 
             if (newRequest is null)
             {
-                var invalidJson = new ValidationResultModel();
-                invalidJson.AddError("Body", "Invalid or malformed JSON.");
-                return (default, invalidJson);
+                validation.AddError("Body", "Invalid or malformed JSON.");
+                return (default, validation);
             }
 
-            var validation = DataAnnotationValidator.Validate(newRequest);
+            validation = DataAnnotationValidator.Validate(newRequest);
             return (newRequest, validation);
         }
 
