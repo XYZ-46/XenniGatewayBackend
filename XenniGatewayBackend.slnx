@@ -9,5 +9,4 @@
   <Project Path="D:/Project/Xenni ApiGateway/XenniGatewayBackend/Repository/Repository.csproj" Id="554f702c-15c7-48b5-8afa-f067f8874c29" />
   <Project Path="D:/Project/Xenni ApiGateway/XenniGatewayBackend/Services/Services.csproj" />
   <Project Path="D:/Project/Xenni ApiGateway/XenniGatewayBackend/Telemetry/Telemetry.csproj" />
-  <Project Path="GlobalHelper/GlobalHelper.csproj" Id="426b8fc8-e7d5-40b5-b314-919f4d870e4b" />
 </Solution>

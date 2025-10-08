@@ -10,7 +10,7 @@ namespace Services
 
         protected readonly IRepositoryCrudBase<TEntity> _repositoryBase = repository;
 
-        public virtual async Task<TEntity> GetByIdAsync(Int64 id) => await _repositoryBase.GetByIdAsync(id) ?? new TEntity();
+        public virtual async Task<TEntity?> GetByIdAsync(Int64 id) => await _repositoryBase.GetByIdAsync(id) ?? new TEntity();
 
         public virtual async Task<TEntity> AddAsync(TEntity entity) => await _repositoryBase.AddAsync(entity);
 

@@ -17,5 +17,6 @@ namespace Entities.Models
 
         public DateTime? UpdatedDate { get; set; }
         public Int64? UpdatedBy { get; set; } // User ID 0 for system
+        public bool IsEmpty() => Id == 0;
     }
 }

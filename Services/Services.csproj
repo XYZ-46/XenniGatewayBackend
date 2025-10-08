@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DataTransferObject\DataTransferObject.csproj" />
-    <ProjectReference Include="..\GlobalHelper\GlobalHelper.csproj" />
     <ProjectReference Include="..\Repository\Repository.csproj" />
   </ItemGroup>
 

@@ -1,14 +1,16 @@
 using ApiService;
+using ApiService.Middleware;
 using Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.OpenApi.Models;
 using Repository;
+using Scalar.AspNetCore;
 using Services;
+using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Telemetry;
-using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +19,11 @@ builder.Services.AddControllers(opt =>
     //options.Filters.Add<AppExceptionFilter>();
 }).AddJsonOptions(opt =>
 {
+    // This prevents characters like ' from being escaped
+    opt.JsonSerializerOptions.Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping;
+    // Optional: ignore null values
+    opt.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+
     opt.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
     opt.JsonSerializerOptions.AllowTrailingCommas = true;
     opt.JsonSerializerOptions.WriteIndented = true;
@@ -82,9 +89,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.MapHealthChecks("_health");
-
 app.UseAuthorization();
-
+app.UseMiddleware<ExceptionMiddleware>();
 app.MapControllers();
-
 app.Run();
