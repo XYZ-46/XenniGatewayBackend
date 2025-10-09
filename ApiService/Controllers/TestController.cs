@@ -8,7 +8,7 @@ namespace ApiService.Controllers
     [ApiVersion("2")]
     [Route("v{version:apiVersion}/[controller]")]
     [ApiController]
-    public class TestController : ControllerBase
+    public class TestController : BaseApiController
     {
         [HttpGet("v1")]
         public async Task<IActionResult> test1()

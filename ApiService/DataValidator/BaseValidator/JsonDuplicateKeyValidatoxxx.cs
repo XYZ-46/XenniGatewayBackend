@@ -3,7 +3,7 @@ using System.Text.Json;
 
 namespace ApiService.DataValidator.BaseValidator
 {
-    public static class JsonDuplicateKeyValidator
+    public static class JsonDuplicateKeyValidatoxxx
     {
         public static List<string> GetDuplicateKeys(string json)
         {

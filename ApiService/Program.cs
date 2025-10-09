@@ -1,4 +1,5 @@
 using ApiService;
+using ApiService.ActionFilter;
 using ApiService.Middleware;
 using Infrastructure;
 using Microsoft.AspNetCore.Mvc;
@@ -16,7 +17,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers(opt =>
 {
-    //options.Filters.Add<AppExceptionFilter>();
+    opt.Filters.Add<ValidationFilter>();
+    opt.Filters.Add<DuplicateKeyValidationFilter>();
 }).AddJsonOptions(opt =>
 {
     // This prevents characters like ' from being escaped
@@ -31,6 +33,10 @@ builder.Services.AddControllers(opt =>
     opt.JsonSerializerOptions.PropertyNamingPolicy = null;
     opt.JsonSerializerOptions.ReadCommentHandling = JsonCommentHandling.Skip;
     opt.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+}).ConfigureApiBehaviorOptions(options =>
+{
+    // disable automatic 400 on model validation failure
+    options.SuppressModelStateInvalidFilter = true;
 });
 
 builder.Services.AddOpenApi(options =>
@@ -40,17 +46,17 @@ builder.Services.AddOpenApi(options =>
         document.Info.Version = "9.9";
         document.Info.Title = "Demo .NET 10 API";
         document.Info.Description = "This API demonstrates OpenAPI customization in a .NET 9 project.";
-        document.Info.TermsOfService = new Uri("https://codewithmukesh.com/terms");
+        document.Info.TermsOfService = new Uri("codewithmukesh.com/terms");
         document.Info.Contact = new OpenApiContact
         {
             Name = "Mukesh Murugan",
             Email = "mukesh@codewithmukesh.com",
-            Url = new Uri("https://codewithmukesh.com")
+            Url = new Uri("codewithmukesh.com")
         };
         document.Info.License = new OpenApiLicense
         {
             Name = "MIT License",
-            Url = new Uri("https://opensource.org/licenses/MIT")
+            Url = new Uri("opensource.org/licenses/MIT")
         };
 
         document.Servers.Add(new OpenApiServer
@@ -92,4 +98,4 @@ app.MapHealthChecks("_health");
 app.UseAuthorization();
 app.UseMiddleware<ExceptionMiddleware>();
 app.MapControllers();
-app.Run();
+await app.RunAsync();

@@ -17,17 +17,13 @@ namespace ApiService.Controllers
             if (!long.TryParse(Id, out long idValue)) throw new XenniException("Data Not Found");
 
             var tenant = await _tenantService.GetByIdAsync(idValue);
-            return tenant == null ? throw new XenniException("Data Not Found") : (IActionResult)new JsonResult(ApiResponseDefault<object>.Found(tenant));
+            return tenant == null ? throw new XenniException("Data Not Found") : new JsonResult(ApiResponseDefault<object>.Found(tenant));
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add()
+        public async Task<IActionResult> Add(AddTenantReq _addTenantReq)
         {
-            var (newTenantReq, tenantValidation) = await ValidateRequestAsync<AddTenantReq>();
-            if (!tenantValidation.IsValid) return ValidationError(tenantValidation);
-            if (newTenantReq is null) throw new XenniException("Invalid Request");
-
-            var newTenant = newTenantReq.MapAddTenant();
+            var newTenant = _addTenantReq.MapAddTenant();
             await _tenantService.AddUniqueTenanNameAsync(newTenant);
 
             return new JsonResult(ApiResponseDefault<object>.Success(newTenant, "Tenant created successfully"));
