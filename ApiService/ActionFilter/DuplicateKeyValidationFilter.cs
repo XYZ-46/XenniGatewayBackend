@@ -1,6 +1,7 @@
 ﻿using ApiService.DataValidator.BaseValidator;
 using DataTransferObject.GlobalObject;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.Text;
@@ -14,7 +15,7 @@ namespace ApiService.ActionFilter
         {
             // 🧩 Step 1: Detect if this action needs body binding
             var hasBodyParam = context.ActionDescriptor.Parameters
-                .OfType<Microsoft.AspNetCore.Mvc.Abstractions.ParameterDescriptor>()
+                .OfType<ParameterDescriptor>()
                 .Any(p =>
                     p.BindingInfo?.BindingSource == BindingSource.Body // explicitly [FromBody]
                     || (p.BindingInfo?.BindingSource == null && !p.ParameterType.IsPrimitive && p.ParameterType != typeof(string))

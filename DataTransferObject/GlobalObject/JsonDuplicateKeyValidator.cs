@@ -46,10 +46,7 @@ namespace DataTransferObject.GlobalObject
                                 : key!;
 
                             var currentKeys = keyStack.Peek();
-                            if (!currentKeys.Add(key!))
-                            {
-                                duplicates.Add(fullPath);
-                            }
+                            if (!currentKeys.Add(key!)) duplicates.Add(fullPath);
 
                             pathStack.Push(key!); // push current property for nested objects/arrays
                             break;
