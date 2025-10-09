@@ -1,25 +1,23 @@
-﻿namespace ApiService.DataValidator.BaseValidator
+﻿using DataTransferObject.GlobalObject;
+
+namespace ApiService.DataValidator.BaseValidator
 {
     public class ValidationResultModel
     {
-        private readonly Dictionary<string, List<string>> _errors = new();
-
+        private readonly Dictionary<string, List<string>> _errors = [];
         public bool IsValid => _errors.Count == 0;
 
         public void AddError(string field, string message)
         {
-            if (!_errors.ContainsKey(field)) _errors[field] = new List<string>();
-
+            if (!_errors.ContainsKey(field)) _errors[field] = [];
             _errors[field].Add(message);
         }
 
-        // Produce your final format
-        public object ToResponse()
+        public ApiResponseDefault<object> ToResponse()
         {
-            // Flatten single errors into string, keep lists for multiple
-            var modelState = _errors.ToDictionary(kv => kv.Key, kv => (object)kv.Value);
-            
-            return new { message = "Validation failed", modelState };
+            // Convert List<string> → string[]
+            var errors = _errors.ToDictionary(kv => kv.Key, kv => kv.Value.ToArray());
+            return ApiResponseDefault<object>.Fail("Validation failed", errors);
         }
     }
 }

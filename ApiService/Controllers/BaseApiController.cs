@@ -10,7 +10,7 @@ namespace ApiService.Controllers
     [ApiController]
     public class BaseApiController : ControllerBase
     {
-        protected async Task<(T? Model, ValidationResultModel Validation)> ValidateRequestAsync<T>()
+        protected async Task<(T? DTO, ValidationResultModel Validation)> ValidateRequestAsync<T>()
         {
             string jsonBody;
             T? newRequest;

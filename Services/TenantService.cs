@@ -14,7 +14,7 @@ namespace Services
         public async Task<TenantModel> AddUniqueTenanNameAsync(TenantModel newTenantModel)
         {
             var existingTenant = await _tenantRepository.GetByTenantNameAsync(newTenantModel.TenantName);
-            if (!existingTenant.IsEmpty()) throw new XenniException($"Tenant with name '{newTenantModel.TenantName}' already exists.");
+            if (existingTenant is not null && !existingTenant.IsEmpty()) throw new XenniException($"Tenant with name '{newTenantModel.TenantName}' already exists.");
 
             await _tenantRepository.AddAsync(newTenantModel);
             return newTenantModel;
