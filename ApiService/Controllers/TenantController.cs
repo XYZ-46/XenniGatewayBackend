@@ -26,7 +26,9 @@ namespace ApiService.Controllers
             var newTenant = _addTenantReq.MapAddTenant();
             await _tenantService.AddUniqueTenanNameAsync(newTenant);
 
-            return new JsonResult(ApiResponseDefault<object>.Success(newTenant, "Tenant created successfully"));
+            var tenantRes = newTenant.MapTenantRes();
+
+            return new JsonResult(ApiResponseDefault<object>.Success(tenantRes, "Tenant created successfully"));
         }
 
     }

@@ -8,7 +8,6 @@ using Microsoft.OpenApi.Models;
 using Repository;
 using Scalar.AspNetCore;
 using Services;
-using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Telemetry;
@@ -21,18 +20,37 @@ builder.Services.AddControllers(opt =>
     opt.Filters.Add<DuplicateKeyValidationFilter>();
 }).AddJsonOptions(opt =>
 {
-    // This prevents characters like ' from being escaped
-    opt.JsonSerializerOptions.Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping;
-    // Optional: ignore null values
-    opt.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+    var options = opt.JsonSerializerOptions;
 
-    opt.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
-    opt.JsonSerializerOptions.AllowTrailingCommas = true;
-    opt.JsonSerializerOptions.WriteIndented = true;
-    opt.JsonSerializerOptions.NumberHandling = JsonNumberHandling.AllowReadingFromString | JsonNumberHandling.WriteAsString;
-    opt.JsonSerializerOptions.PropertyNamingPolicy = null;
-    opt.JsonSerializerOptions.ReadCommentHandling = JsonCommentHandling.Skip;
-    opt.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    //============* read Json
+    // Skip comments in JSON
+    options.ReadCommentHandling = JsonCommentHandling.Skip;
+
+    // Accept property names case-insensitively
+    options.PropertyNameCaseInsensitive = true;
+
+    // Accept trailing commas (like your example)
+    options.AllowTrailingCommas = true;
+
+    // Allow numbers to be read from strings
+    options.NumberHandling = JsonNumberHandling.AllowReadingFromString;
+
+    //============* write Json
+    // Relax string escaping (allow special chars like single quote '12')
+    options.Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping;
+
+    // Optional: write indented JSON
+    options.WriteIndented = true;
+
+    // Ignore null values when serializing
+    options.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+
+    // Leave property names as-is (no camelCase conversion)
+    options.PropertyNamingPolicy = null;
+
+    // Support enums as strings
+    options.Converters.Add(new JsonStringEnumConverter());
+
 }).ConfigureApiBehaviorOptions(options =>
 {
     // disable automatic 400 on model validation failure
