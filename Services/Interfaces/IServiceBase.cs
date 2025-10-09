@@ -1,8 +1,8 @@
-﻿namespace Interfaces.IRepositoryCrud
+﻿namespace Services.Interfaces
 {
-    public interface IRepositoryCrudBase<TEntity>
+    public interface IServiceBase<TEntity>
     {
-        Task<TEntity?> GetByIdAsync(Int64 id);
+        Task<TEntity?> GetByIdAsync(long id);
         Task<IEnumerable<TEntity>> GetPagedAsync(int page, int size);
         Task<TEntity> AddAsync(TEntity entity);
         Task UpdateAsync(TEntity entity);

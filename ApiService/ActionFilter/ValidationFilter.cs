@@ -1,4 +1,4 @@
-﻿using ApiService.DataValidator.BaseValidator;
+﻿using ApiService.DataValidator;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 

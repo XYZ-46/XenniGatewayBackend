@@ -1,6 +1,6 @@
 ﻿using Entities.Models;
 
-namespace Interfaces.IServices
+namespace Services.Interfaces
 {
     public interface ITenantService : IServiceBase<TenantModel>
     {

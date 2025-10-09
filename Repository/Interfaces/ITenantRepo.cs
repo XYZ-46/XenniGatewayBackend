@@ -1,8 +1,8 @@
 ﻿using Entities.Models;
 
-namespace Interfaces.IRepositoryCrud
+namespace Repository.Interfaces
 {
-    public interface ITenantRepoCrud : IRepositoryCrudBase<TenantModel>
+    public interface ITenantRepo : IRepositoryBase<TenantModel>
     {
         Task<TenantModel?> GetByTenantNameAsync(string tenantName);
     }

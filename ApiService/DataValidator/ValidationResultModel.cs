@@ -1,6 +1,6 @@
 ﻿using DataTransferObject.GlobalObject;
 
-namespace ApiService.DataValidator.BaseValidator
+namespace ApiService.DataValidator
 {
     public class ValidationResultModel
     {

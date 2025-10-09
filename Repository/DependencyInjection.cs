@@ -1,5 +1,5 @@
-﻿using Interfaces.IRepositoryCrud;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Repository.Interfaces;
 
 namespace Repository
 {
@@ -7,7 +7,7 @@ namespace Repository
     {
         public static IServiceCollection AddDIRepository(this IServiceCollection services)
         {
-            services.AddScoped<ITenantRepoCrud, TenantRepository>();
+            services.AddScoped<ITenantRepo, TenantRepository>();
 
 
             return services;

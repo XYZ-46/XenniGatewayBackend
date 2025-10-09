@@ -1,10 +1,10 @@
 ﻿using Entities.Models;
-using Interfaces.IRepositoryCrud;
 using Microsoft.EntityFrameworkCore;
+using Repository.Interfaces;
 
 namespace Repository
 {
-    public abstract class RepositoryCrudBase<TEntity> : IRepositoryCrudBase<TEntity>
+    public abstract class RepositoryCrudBase<TEntity> : IRepositoryBase<TEntity>
         where TEntity : BaseEntity, new()
     {
         protected readonly DbContext _context;
@@ -42,6 +42,6 @@ namespace Repository
             await _context.SaveChangesAsync();
         }
 
-        public virtual async Task<IEnumerable<TEntity>> GetPagedAsync(int page = 1, int size = 10) => await _set.Skip((page - 1) * size).Take(size).ToListAsync();
+        public virtual async Task<IEnumerable<TEntity>> GetPagedAsync(int page, int size) => await _set.Skip((page - 1) * size).Take(size).ToListAsync();
     }
 }

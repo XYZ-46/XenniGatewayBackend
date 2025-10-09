@@ -90,7 +90,6 @@ builder.Services.AddOpenApi(options =>
 builder.Services.AddDIInfrastructure(builder.Configuration["ConnectionDB:XenniDB"]!);
 builder.Services.AddDIRepository();
 builder.Services.AddDIService();
-builder.Services.AddDIApi();
 
 builder.Services.AddDITelemetryServices();
 

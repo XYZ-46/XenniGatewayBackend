@@ -4,7 +4,6 @@
   <Project Path="D:/Project/Xenni ApiGateway/XenniGatewayBackend/DataTransferObject/DataTransferObject.csproj" Id="bdb5373d-067f-4694-b415-ebce0870e1cb" />
   <Project Path="D:/Project/Xenni ApiGateway/XenniGatewayBackend/Entities/Entities.csproj" />
   <Project Path="D:/Project/Xenni ApiGateway/XenniGatewayBackend/Infrastructure/Infrastructure.csproj" />
-  <Project Path="D:/Project/Xenni ApiGateway/XenniGatewayBackend/Interfaces/Interfaces.csproj" Id="a8627170-e32f-426c-83d6-1b660ad8a45b" />
   <Project Path="D:/Project/Xenni ApiGateway/XenniGatewayBackend/Mapper/Mapper.csproj" Id="286d3afc-38ee-4d76-87c1-7fddd7272b07" />
   <Project Path="D:/Project/Xenni ApiGateway/XenniGatewayBackend/Repository/Repository.csproj" Id="554f702c-15c7-48b5-8afa-f067f8874c29" />
   <Project Path="D:/Project/Xenni ApiGateway/XenniGatewayBackend/Services/Services.csproj" />

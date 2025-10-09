@@ -1,8 +1,8 @@
 ﻿using DataTransferObject.GlobalObject;
 using DataTransferObject.Tenant;
-using Interfaces.IServices;
 using Mapper;
 using Microsoft.AspNetCore.Mvc;
+using Services.Interfaces;
 
 namespace ApiService.Controllers
 {

@@ -1,15 +1,15 @@
 ﻿using DataTransferObject.GlobalObject;
 using Entities.Models;
-using Interfaces.IRepositoryCrud;
-using Interfaces.IServices;
+using Repository.Interfaces;
+using Services.Interfaces;
 
 namespace Services
 {
-    public class TenantService(ITenantRepoCrud tenantRepository) : ServiceBase<TenantModel>(tenantRepository), ITenantService
+    public class TenantService(ITenantRepo tenantRepository) : ServiceBase<TenantModel>(tenantRepository), ITenantService
     {
-        private readonly ITenantRepoCrud _tenantRepository = tenantRepository;
+        private readonly ITenantRepo _tenantRepository = tenantRepository;
 
-        public async Task<TenantModel?> GetByTenanNameAsync(string username) => await _tenantRepository.GetByTenantNameAsync(username);
+        public async Task<TenantModel?> GetByTenanNameAsync(string tenantName) => await _tenantRepository.GetByTenantNameAsync(tenantName);
 
         public async Task<TenantModel> AddUniqueTenanNameAsync(TenantModel newTenantModel)
         {

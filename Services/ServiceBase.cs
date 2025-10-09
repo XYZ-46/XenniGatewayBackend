@@ -1,14 +1,14 @@
 ﻿using Entities.Models;
-using Interfaces.IRepositoryCrud;
-using Interfaces.IServices;
+using Repository.Interfaces;
+using Services.Interfaces;
 
 namespace Services
 {
-    public abstract class ServiceBase<TEntity>(IRepositoryCrudBase<TEntity> repository) : IServiceBase<TEntity>
+    public abstract class ServiceBase<TEntity>(IRepositoryBase<TEntity> repository) : IServiceBase<TEntity>
         where TEntity : BaseEntity, new()
     {
 
-        protected readonly IRepositoryCrudBase<TEntity> _repositoryBase = repository;
+        protected readonly IRepositoryBase<TEntity> _repositoryBase = repository;
 
         public virtual async Task<TEntity?> GetByIdAsync(long id) => await _repositoryBase.GetByIdAsync(id);
 
@@ -18,7 +18,7 @@ namespace Services
 
         public virtual async Task DeleteAsync(TEntity entity) => await _repositoryBase.DeleteAsync(entity);
 
-        public virtual async Task<IEnumerable<TEntity>> GetPagedAsync(int page = 1, int size = 10) => await _repositoryBase.GetPagedAsync(page, size);
+        public virtual async Task<IEnumerable<TEntity>> GetPagedAsync(int page, int size) => await _repositoryBase.GetPagedAsync(page, size);
 
     }
 }

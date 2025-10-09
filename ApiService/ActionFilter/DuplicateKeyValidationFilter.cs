@@ -1,4 +1,4 @@
-﻿using ApiService.DataValidator.BaseValidator;
+﻿using ApiService.DataValidator;
 using DataTransferObject.GlobalObject;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -86,7 +86,7 @@ namespace ApiService.ActionFilter
         // -----------------------------
         // Duplicate key detection logic
         // -----------------------------
-        private List<string> GetDuplicateKeys(string json)
+        private static List<string> GetDuplicateKeys(string json)
         {
             var duplicates = new List<string>();
 
