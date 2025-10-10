@@ -11,7 +11,7 @@ namespace Infrastructure.Models
 
         public bool IsDeleted { get; set; } = false;
 
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime CreatedDate { get; set; }
         public long CreatedBy { get; set; } = 0; // User ID 0 for system
 
