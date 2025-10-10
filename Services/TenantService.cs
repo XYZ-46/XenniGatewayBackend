@@ -1,5 +1,5 @@
-﻿using DataTransferObject.GlobalObject;
-using Entities.Models;
+﻿using Infrastructure;
+using Infrastructure.Models;
 using Repository.Interfaces;
 using Services.Interfaces;
 

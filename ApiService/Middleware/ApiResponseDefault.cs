@@ -1,4 +1,4 @@
-﻿namespace DataTransferObject.GlobalObject
+﻿namespace ApiService.Middleware
 {
     public class ApiResponseDefault<T>
     {

@@ -1,7 +1,8 @@
-﻿using DataTransferObject.Tenant;
-using Entities.Models;
+﻿using Infrastructure.Models;
+using Services.RequestDTO;
+using Services.ResponseDTO;
 
-namespace Mapper
+namespace Services.Mapper
 {
     public static class TenantMapper
     {

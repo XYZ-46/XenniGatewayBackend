@@ -1,5 +1,5 @@
-﻿using DataTransferObject.Tenant;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Services.RequestDTO;
 using System.Text.Json;
 
 namespace ApiService.Controllers

@@ -1,4 +1,4 @@
-﻿namespace DataTransferObject.Tenant
+﻿namespace Services.ResponseDTO
 {
     public record TenantRes
     {

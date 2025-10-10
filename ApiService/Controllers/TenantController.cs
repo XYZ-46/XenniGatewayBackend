@@ -1,8 +1,9 @@
-﻿using DataTransferObject.GlobalObject;
-using DataTransferObject.Tenant;
-using Mapper;
+﻿using ApiService.Middleware;
+using Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Services.Interfaces;
+using Services.RequestDTO;
+using Services.Mapper;
 
 namespace ApiService.Controllers
 {

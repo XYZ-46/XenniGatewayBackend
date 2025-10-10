@@ -1,4 +1,4 @@
-﻿using Entities.Models;
+﻿using Infrastructure.Models;
 
 namespace Repository.Interfaces
 {

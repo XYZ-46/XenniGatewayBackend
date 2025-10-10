@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Entities.Models
+namespace Infrastructure.Models
 {
     [Table("Tenant")]
     public class TenantModel() : BaseEntity

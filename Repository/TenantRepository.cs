@@ -1,5 +1,5 @@
-﻿using Entities.Models;
-using Infrastructure;
+﻿using Infrastructure;
+using Infrastructure.Models;
 using Microsoft.EntityFrameworkCore;
 using Repository.Interfaces;
 

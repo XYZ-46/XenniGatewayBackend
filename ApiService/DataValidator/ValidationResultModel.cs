@@ -1,4 +1,4 @@
-﻿using DataTransferObject.GlobalObject;
+﻿using ApiService.Middleware;
 
 namespace ApiService.DataValidator
 {

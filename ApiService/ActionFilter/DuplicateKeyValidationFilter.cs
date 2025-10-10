@@ -1,5 +1,5 @@
 ﻿using ApiService.DataValidator;
-using DataTransferObject.GlobalObject;
+using Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System.Text;

@@ -1,4 +1,4 @@
-﻿using DataTransferObject.GlobalObject;
+﻿using Infrastructure;
 using System.Net;
 using System.Text.Encodings.Web;
 using System.Text.Json;
