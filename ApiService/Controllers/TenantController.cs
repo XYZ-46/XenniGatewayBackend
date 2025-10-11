@@ -1,9 +1,9 @@
 ﻿using ApiService.Middleware;
+using Application.Interface;
+using Application.Mapper;
+using Application.RequestDTO;
 using Infrastructure;
 using Microsoft.AspNetCore.Mvc;
-using Services.Interfaces;
-using Services.RequestDTO;
-using Services.Mapper;
 
 namespace ApiService.Controllers
 {

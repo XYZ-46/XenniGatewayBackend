@@ -1,9 +1,10 @@
-﻿using Infrastructure;
+﻿using AbstractionBase;
+using Application.Interface;
+using Domain.Interfaces;
+using Infrastructure;
 using Infrastructure.Models;
-using Repository.Interfaces;
-using Services.Interfaces;
 
-namespace Services
+namespace Application.Services
 {
     public class TenantService(ITenantRepo tenantRepository) : ServiceBase<TenantModel>(tenantRepository), ITenantService
     {

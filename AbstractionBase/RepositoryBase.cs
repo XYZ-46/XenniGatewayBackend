@@ -1,16 +1,16 @@
-﻿using Infrastructure.Models;
+﻿using AbstractionBase.Interfaces;
+using Infrastructure.Models;
 using Microsoft.EntityFrameworkCore;
-using Repository.Interfaces;
 
-namespace Repository
+namespace AbstractionBase
 {
-    public abstract class RepositoryCrudBase<TEntity> : IRepositoryBase<TEntity>
+    public abstract class RepositoryBase<TEntity> : IRepositoryBase<TEntity>
         where TEntity : BaseEntity, new()
     {
         protected readonly DbContext _context;
         protected readonly DbSet<TEntity> _set;
 
-        protected RepositoryCrudBase(DbContext context)
+        protected RepositoryBase(DbContext context)
         {
             _context = context;
             _set = _context.Set<TEntity>();

@@ -1,6 +1,7 @@
-﻿using Infrastructure.Models;
+﻿using AbstractionBase.Interfaces;
+using Infrastructure.Models;
 
-namespace Repository.Interfaces
+namespace Domain.Interfaces
 {
     public interface ITenantRepo : IRepositoryBase<TenantModel>
     {

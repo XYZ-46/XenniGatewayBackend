@@ -1,4 +1,4 @@
-﻿namespace Services.ResponseDTO
+﻿namespace Application.ResponseDTO
 {
     public record TenantRes
     {

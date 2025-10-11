@@ -1,6 +1,7 @@
-﻿using Infrastructure.Models;
+﻿using AbstractionBase.Interfaces;
+using Infrastructure.Models;
 
-namespace Services.Interfaces
+namespace Application.Interface
 {
     public interface ITenantService : IServiceBase<TenantModel>
     {

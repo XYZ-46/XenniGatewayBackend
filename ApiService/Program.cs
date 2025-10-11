@@ -1,13 +1,12 @@
-using ApiService;
 using ApiService.ActionFilter;
 using ApiService.Middleware;
+using Application;
+using Domain;
 using Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.OpenApi.Models;
-using Repository;
 using Scalar.AspNetCore;
-using Services;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Telemetry;
@@ -88,8 +87,8 @@ builder.Services.AddOpenApi(options =>
 });
 
 builder.Services.AddDIInfrastructure(builder.Configuration["ConnectionDB:XenniDB"]!);
-builder.Services.AddDIRepository();
-builder.Services.AddDIService();
+builder.Services.AddDomainDI();
+builder.Services.AddApplicationDI();
 
 builder.Services.AddDITelemetryServices();
 

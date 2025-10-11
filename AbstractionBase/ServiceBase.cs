@@ -1,8 +1,7 @@
-﻿using Infrastructure.Models;
-using Repository.Interfaces;
-using Services.Interfaces;
+﻿using AbstractionBase.Interfaces;
+using Infrastructure.Models;
 
-namespace Services
+namespace AbstractionBase
 {
     public abstract class ServiceBase<TEntity>(IRepositoryBase<TEntity> repository) : IServiceBase<TEntity>
         where TEntity : BaseEntity, new()

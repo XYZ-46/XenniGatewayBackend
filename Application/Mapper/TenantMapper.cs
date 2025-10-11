@@ -1,8 +1,8 @@
-﻿using Infrastructure.Models;
-using Services.RequestDTO;
-using Services.ResponseDTO;
+﻿using Application.RequestDTO;
+using Application.ResponseDTO;
+using Infrastructure.Models;
 
-namespace Services.Mapper
+namespace Application.Mapper
 {
     public static class TenantMapper
     {

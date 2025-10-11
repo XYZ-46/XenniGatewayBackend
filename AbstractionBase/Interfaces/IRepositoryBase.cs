@@ -1,8 +1,8 @@
-﻿namespace Services.Interfaces
+﻿namespace AbstractionBase.Interfaces
 {
-    public interface IServiceBase<TEntity>
+    public interface IRepositoryBase<TEntity>
     {
-        Task<TEntity?> GetByIdAsync(long id);
+        Task<TEntity?> GetByIdAsync(Int64 id);
         Task<IEnumerable<TEntity>> GetPagedAsync(int page, int size);
         Task<TEntity> AddAsync(TEntity entity);
         Task UpdateAsync(TEntity entity);

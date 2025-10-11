@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Services.RequestDTO
+namespace Application.RequestDTO
 {
     public record AddTenantReq
     {
