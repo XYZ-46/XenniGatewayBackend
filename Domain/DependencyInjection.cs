@@ -6,7 +6,6 @@ namespace Domain
     {
         public static IServiceCollection AddDomainDI(this IServiceCollection services)
         {
-            //services.AddScoped<ITenantRepo, TenantRepository>();
 
 
             return services;

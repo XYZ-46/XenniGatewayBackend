@@ -4,6 +4,8 @@
     <!-- <CentralPackageFloatingVersionsEnabled>true</CentralPackageFloatingVersionsEnabled> -->
   </PropertyGroup>
   <ItemGroup>
+    <PackageVersion Include="BCrypt.Net-Next" Version="4.0.3" />
+    <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.9" />
     <PackageVersion Include="Microsoft.AspNetCore.Diagnostics" Version="2.3.0" />
     <PackageVersion Include="Microsoft.AspNetCore.Diagnostics.Abstractions" Version="2.3.0" />
     <PackageVersion Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.1.0" />

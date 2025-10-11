@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.OpenApi.Models;
 using Scalar.AspNetCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Telemetry;
@@ -89,8 +91,9 @@ builder.Services.AddOpenApi(options =>
 builder.Services.AddDIInfrastructure(builder.Configuration["ConnectionDB:XenniDB"]!);
 builder.Services.AddDomainDI();
 builder.Services.AddApplicationDI();
-
 builder.Services.AddDITelemetryServices();
+
+
 
 builder.Services.AddApiVersioning(opt =>
 {
