@@ -7,7 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AbstractionBase\AbstractionBase.csproj" />
+    <Folder Include="DataRules\" />
+    <Folder Include="Entities\" />
+    <Folder Include="Interfaces\" />
+    <Folder Include="ValueObjects\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

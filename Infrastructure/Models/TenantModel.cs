@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using AbstractionBase;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Infrastructure.Models
 {

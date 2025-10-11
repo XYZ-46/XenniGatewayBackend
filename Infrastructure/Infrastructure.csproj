@@ -8,8 +8,11 @@
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore" />		
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\AbstractionBase\AbstractionBase.csproj" />
 	</ItemGroup>
 
 </Project>

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Infrastructure.Models
+namespace AbstractionBase
 {
     public abstract class BaseEntity
     {
@@ -18,5 +18,6 @@ namespace Infrastructure.Models
         public DateTime? UpdatedDate { get; set; }
         public long? UpdatedBy { get; set; } // User ID 0 for system
         public bool IsEmpty() => Id == 0;
+        public bool IsNotEmpty() => Id > 0;
     }
 }

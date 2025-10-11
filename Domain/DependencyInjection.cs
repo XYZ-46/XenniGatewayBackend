@@ -1,5 +1,4 @@
-﻿using Domain.Interfaces;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 
 namespace Domain
 {
@@ -7,7 +6,7 @@ namespace Domain
     {
         public static IServiceCollection AddDomainDI(this IServiceCollection services)
         {
-            services.AddScoped<ITenantRepo, TenantRepository>();
+            //services.AddScoped<ITenantRepo, TenantRepository>();
 
 
             return services;

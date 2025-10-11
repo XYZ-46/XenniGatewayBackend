@@ -1,7 +1,7 @@
 ﻿using AbstractionBase;
 using Application.Interface;
-using Domain.Interfaces;
 using Infrastructure;
+using Infrastructure.IRepositories;
 using Infrastructure.Models;
 
 namespace Application.Services

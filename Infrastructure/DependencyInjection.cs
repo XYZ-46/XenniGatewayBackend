@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Infrastructure.IRepositories;
+using Infrastructure.Repositories;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Infrastructure
@@ -8,7 +10,7 @@ namespace Infrastructure
         public static IServiceCollection AddDIInfrastructure(this IServiceCollection services, string connectionString)
         {
             services.AddDbContext<XenniDB>(options => options.UseSqlServer(connectionString));
-
+            services.AddScoped<ITenantRepo, TenantRepository>();
 
             return services;
         }

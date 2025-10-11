@@ -1,10 +1,9 @@
 ﻿using AbstractionBase;
-using Domain.Interfaces;
-using Infrastructure;
+using Infrastructure.IRepositories;
 using Infrastructure.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Domain
+namespace Infrastructure.Repositories
 {
     public class TenantRepository(XenniDB _xenniDB) : RepositoryBase<TenantModel>(_xenniDB), ITenantRepo
     {

@@ -1,5 +1,4 @@
 ﻿using AbstractionBase.Interfaces;
-using Infrastructure.Models;
 
 namespace AbstractionBase
 {
