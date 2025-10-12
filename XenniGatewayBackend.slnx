@@ -1,5 +1,4 @@
 <Solution>
-  <Project Path="AbstractionBase/AbstractionBase.csproj" Id="f3734c6c-f005-4d9b-9bc6-63715525a694" />
   <Project Path="Application/Application.csproj" Id="7e96483d-192f-47e3-a9f2-bdbeb7d0c943" />
   <Project Path="Auth/Auth.csproj" Id="dafb72ed-c892-4081-8eb7-109b359fdb82" />
   <Project Path="D:/Project/Xenni ApiGateway/XenniGatewayBackend/ApiService/ApiService.csproj" />
