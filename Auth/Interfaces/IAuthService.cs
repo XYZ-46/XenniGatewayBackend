@@ -1,10 +1,11 @@
-﻿using Auth.DTOs;
+﻿using Auth.DTO;
+using Domain.Entities;
 
 namespace Auth.Interfaces
 {
-    public interface IAuthService
+    public interface IAuthService 
     {
-        Task<AuthResponse> RegisterAsync(RegisterRequest request);
-        Task<AuthResponse> LoginAsync(LoginRequest request);
+        Task<LoginResponse> LoginAsync(UserDto userLoginRequest, CancellationToken cancellationToken = default);
+        Task<UserCreatedDto> RegisterAsync(UserDto userRegisterRequest, CancellationToken cancellationToken = default);
     }
 }

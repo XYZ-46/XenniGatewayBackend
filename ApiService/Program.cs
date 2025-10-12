@@ -1,14 +1,13 @@
 using ApiService.ActionFilter;
 using ApiService.Middleware;
 using Application;
+using Auth;
 using Domain;
 using Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.OpenApi.Models;
 using Scalar.AspNetCore;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Telemetry;
@@ -92,8 +91,7 @@ builder.Services.AddDIInfrastructure(builder.Configuration["ConnectionDB:XenniDB
 builder.Services.AddDomainDI();
 builder.Services.AddApplicationDI();
 builder.Services.AddDITelemetryServices();
-
-
+builder.Services.AddAuthDI(builder.Configuration);
 
 builder.Services.AddApiVersioning(opt =>
 {
@@ -114,7 +112,12 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.MapHealthChecks("_health");
-app.UseAuthorization();
+
+app.UseAuthentication();
+app.UseAuthorization(); 
+
 app.UseMiddleware<ExceptionMiddleware>();
+
 app.MapControllers();
+
 await app.RunAsync();

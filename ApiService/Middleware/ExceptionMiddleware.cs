@@ -1,4 +1,6 @@
-﻿using Infrastructure;
+﻿using ApiService.DTO.Response;
+using Infrastructure;
+using Microsoft.IdentityModel.Tokens;
 using System.Net;
 using System.Text.Encodings.Web;
 using System.Text.Json;
@@ -28,11 +30,11 @@ namespace ApiService.Middleware
             ApiResponseDefault<object> response;
             int statusCode;
 
-            if (ex is XenniException)
+            if (ex is XenniException || ex is SecurityTokenException || ex is NotImplementedException)
             {
                 // Known business / application error
                 statusCode = (int)HttpStatusCode.BadRequest;
-                response = ApiResponseDefault<object>.Fail(ex.Message);
+                response = ApiResponseDefault<object>.Fail(ex.InnerException?.Message ?? ex.Message);
             }
             else
             {

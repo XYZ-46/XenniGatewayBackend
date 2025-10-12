@@ -1,4 +1,4 @@
-﻿namespace ApiService.Middleware
+﻿namespace ApiService.DTO.Response
 {
     public class ApiResponseDefault<T>
     {

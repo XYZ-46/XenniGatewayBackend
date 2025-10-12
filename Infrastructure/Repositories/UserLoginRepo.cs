@@ -1,5 +1,4 @@
-﻿using AbstractionBase;
-using Infrastructure.IRepositories;
+﻿using Infrastructure.IRepositories;
 using Infrastructure.Models;
 
 namespace Infrastructure.Repositories

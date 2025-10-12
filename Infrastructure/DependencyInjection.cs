@@ -11,9 +11,6 @@ namespace Infrastructure
         {
             services.AddDbContext<XenniDB>(options => options.UseSqlServer(connectionString));
 
-
-
-
             services.AddScoped<ITenantRepo, TenantRepository>();
             services.AddScoped<IUserLoginRepo, UserLoginRepo>();
             services.AddScoped<IUserProfileRepo, UserProfileRepo>();
