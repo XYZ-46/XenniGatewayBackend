@@ -11,8 +11,4 @@
 		<PackageReference Include="Microsoft.EntityFrameworkCore" />		
 	</ItemGroup>
 
-	<ItemGroup>
-	  <ProjectReference Include="..\AbstractionBase\AbstractionBase.csproj" />
-	</ItemGroup>
-
 </Project>

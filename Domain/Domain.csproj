@@ -8,8 +8,6 @@
 
   <ItemGroup>
     <Folder Include="DataRules\" />
-    <Folder Include="Entities\" />
-    <Folder Include="Interfaces\" />
     <Folder Include="ValueObjects\" />
   </ItemGroup>
 
