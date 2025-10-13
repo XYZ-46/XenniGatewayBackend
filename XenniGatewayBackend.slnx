@@ -1,9 +1,9 @@
 <Solution>
+  <Project Path="ApiService/ApiService.csproj" />
   <Project Path="Application/Application.csproj" Id="7e96483d-192f-47e3-a9f2-bdbeb7d0c943" />
   <Project Path="Auth/Auth.csproj" Id="dafb72ed-c892-4081-8eb7-109b359fdb82" />
-  <Project Path="D:/Project/Xenni ApiGateway/XenniGatewayBackend/ApiService/ApiService.csproj" />
-  <Project Path="D:/Project/Xenni ApiGateway/XenniGatewayBackend/BackgroundServices/BackgroundServices.csproj" Id="6c5e3429-695f-496d-952b-bc66b0b937e9" />
-  <Project Path="D:/Project/Xenni ApiGateway/XenniGatewayBackend/Infrastructure/Infrastructure.csproj" />
-  <Project Path="D:/Project/Xenni ApiGateway/XenniGatewayBackend/Telemetry/Telemetry.csproj" />
+  <Project Path="BackgroundServices/BackgroundServices.csproj" />
   <Project Path="Domain/Domain.csproj" Id="d54353c3-7cd3-41de-92e4-c660969f9885" />
+  <Project Path="Infrastructure/Infrastructure.csproj" />
+  <Project Path="Telemetry/Telemetry.csproj" />
 </Solution>
