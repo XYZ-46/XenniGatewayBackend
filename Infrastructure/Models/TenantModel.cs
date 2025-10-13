@@ -6,5 +6,6 @@ namespace Infrastructure.Models
     public class TenantModel() : BaseActiveEntity
     {
         public string TenantName { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
     }
 }

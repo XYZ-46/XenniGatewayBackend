@@ -11,7 +11,7 @@ namespace Domain
 
             services.AddScoped<IUserLoginService, UserLoginService>();
             services.AddScoped<IUserProfileService, UserProfileService>();
-            services.AddScoped<IUserDomainService, UserDomainService>();
+            services.AddScoped<IUserService, UserService>();
             return services;
         }
     }

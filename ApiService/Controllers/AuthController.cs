@@ -4,33 +4,19 @@ using ApiService.Mapper;
 using Auth.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Concurrent;
 
 namespace ApiService.Controllers
 {
-    public class AuthController(IJwtTokenService jwtService, IAuthService authService) : BaseApiController
+    public class AuthController(IAuthService authService) : BaseApiController
     {
-        private static readonly ConcurrentDictionary<string, string> _refreshTokens = new();
-        private readonly IJwtTokenService _jwtService = jwtService;
         private readonly IAuthService _authService = authService;
 
         [AllowAnonymous]
         [HttpPost("login")]
-        public IActionResult Login(LoginRequest loginReq)
+        public async Task<IActionResult> Login(LoginRequest loginReq, CancellationToken cancellationToken)
         {
-            // TODO: Validate credentials from DB
-            //if (loginReq.Username != "admin" || loginReq.Password != "123456")
-            //    return Unauthorized("Invalid username or password");
-
-            //UserJwt userLoginJwt = new();
-            //var accessToken = _jwtService.GenerateAccessToken(userLoginJwt);
-            //var refreshToken = _jwtService.GenerateRefreshToken();
-
-            //_refreshTokens[refreshToken] = loginReq.Username;
-
-            //return new JsonResult(ApiResponseDefault<object>.Success(new { AccessToken = accessToken, RefreshToken = refreshToken }, "Login success"));
-            return Ok(new { Message = "User registered successfully" });
-
+            var token = await _authService.LoginAsync(loginReq.MapToUserDto(), cancellationToken);
+            return new JsonResult(ApiResponseDefault<object>.Success(token, "Login success"));
         }
 
         [HttpPost("register")]

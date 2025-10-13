@@ -4,43 +4,34 @@ using Auth.Mapper;
 using Auth.Security;
 using Domain.Entities;
 using Domain.Interfaces;
-using Domain.Mapper;
+using Infrastructure;
 
 namespace Auth.Services
 {
-    public class AuthService(IJwtTokenService jwtTokenService, IUserDomainService userDomainService) : IAuthService
+    public class AuthService(IJwtTokenService jwtTokenService, IUserService userDomainService) : IAuthService
     {
         private readonly IJwtTokenService _jwtTokenService = jwtTokenService;
-        private readonly IUserDomainService _userDomainService = userDomainService;
-        //private readonly IUserDomainService _userDomainService = userDomainService;
+        private readonly IUserService _userService = userDomainService;
 
-        public async Task<LoginResponse> LoginAsync(UserDto userLoginRequest, CancellationToken cancellationToken = default)
+        public async Task<LoginResponse> LoginAsync(UserRequestDto userLoginRequest, CancellationToken cancellationToken = default)
         {
-            //var user = await _userProfileRepo.GetByEmailAsync(request.Email) ?? throw new XenniException("Invalid credentials.");
+            if (!_userService.IsRegisteredAsync(userLoginRequest.Email, cancellationToken).Result) throw new XenniException("Invalid credentials.");
 
-            //if (!PasswordHasher.Verify(request.Password, user.PasswordHash))
-            //    throw new UnauthorizedAccessException("Invalid credentials.");
+            var passwordHash = await _userService.GetPasswordActiveAsync(userLoginRequest.Email, cancellationToken);
+            if (!PasswordHasher.Verify(userLoginRequest.Password, passwordHash ?? "")) throw new XenniException("Invalid credentials.");
 
-            //var token = _tokenGen.GenerateToken(user);
+            var token = _jwtTokenService.GenerateAccessToken(userLoginRequest);
+            var refreshToken = _jwtTokenService.GenerateRefreshToken();
 
-            //return new AuthResponse
-            //{
-            //    Token = token,
-            //    ExpiresAt = DateTime.UtcNow.AddMinutes(30)
-            //};
-
-            return new LoginResponse();
+            return new LoginResponse() { AccessToken = token, RefreshToken = refreshToken };
         }
 
-        public async Task<UserCreatedDto> RegisterAsync(UserDto userRegisterRequest, CancellationToken cancellationToken = default)
+        public async Task<UserCreatedDto> RegisterAsync(UserRequestDto userRegisterRequest, CancellationToken cancellationToken = default)
         {
-
             var PasswordHash = PasswordHasher.Hash(userRegisterRequest.Password);
             var userProfile = userRegisterRequest.MapToCreateProfileModel();
 
-            var userCreated = await _userDomainService.RegisterAsync(userProfile, PasswordHash, cancellationToken);
-
-            return userCreated;
+            return await _userService.RegisterAsync(userProfile, PasswordHash, cancellationToken);
         }
     }
 }

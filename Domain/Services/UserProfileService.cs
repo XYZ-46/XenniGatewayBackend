@@ -4,7 +4,7 @@ using Infrastructure.Models;
 
 namespace Domain.Services
 {
-    public class UserProfileService(IUserProfileRepo userProfileRepo) : ServiceDomainBase<UserProfileModel>(userProfileRepo), IUserProfileService
+    public class UserProfileService(IUserProfileRepo userProfileRepo) : ServiceBase<UserProfileModel>(userProfileRepo), IUserProfileService
     {
         private readonly IUserProfileRepo _userProfileRepo = userProfileRepo;
 

@@ -16,8 +16,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers(opt =>
 {
-    opt.Filters.Add<ValidationFilter>();
+    // validate Model Binding
     opt.Filters.Add<DuplicateKeyValidationFilter>();
+    opt.Filters.Add<ValidationFilter>();
 }).AddJsonOptions(opt =>
 {
     var options = opt.JsonSerializerOptions;
@@ -34,6 +35,9 @@ builder.Services.AddControllers(opt =>
 
     // Allow numbers to be read from strings
     options.NumberHandling = JsonNumberHandling.AllowReadingFromString;
+    
+    // Leave property names as-is (no camelCase conversion)
+    options.PropertyNamingPolicy = null;
 
     //============* write Json
     // Relax string escaping (allow special chars like single quote '12')
@@ -43,10 +47,7 @@ builder.Services.AddControllers(opt =>
     options.WriteIndented = true;
 
     // Ignore null values when serializing
-    options.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
-
-    // Leave property names as-is (no camelCase conversion)
-    options.PropertyNamingPolicy = null;
+    options.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;   
 
     // Support enums as strings
     options.Converters.Add(new JsonStringEnumConverter());

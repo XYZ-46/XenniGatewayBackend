@@ -5,7 +5,7 @@ namespace Auth.Mapper
 {
     public static class UserMapper
     {
-        public static UserProfileModel MapToCreateProfileModel(this UserDto registerRequest) => new()
+        public static UserProfileModel MapToCreateProfileModel(this UserRequestDto registerRequest) => new()
         {
             Email = registerRequest.Email,
             TenantId = registerRequest.TenantId,

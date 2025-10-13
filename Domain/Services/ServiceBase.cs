@@ -4,7 +4,7 @@ using Infrastructure.Models;
 
 namespace Domain.Services
 {
-    public abstract class ServiceDomainBase<TEntity>(IRepositoryBase<TEntity> repository) : IServiceBase<TEntity>
+    public abstract class ServiceBase<TEntity>(IRepositoryBase<TEntity> repository) : IServiceBase<TEntity>
         where TEntity : BaseEntity, new()
     {
 
@@ -19,5 +19,7 @@ namespace Domain.Services
         public virtual async Task DeleteAsync(TEntity entity, CancellationToken cancellationToken = default) => await _repositoryBase.DeleteAsync(entity, cancellationToken);
 
         public virtual async Task<IEnumerable<TEntity>> GetPagedAsync(int page, int size) => await _repositoryBase.GetPagedAsync(page, size);
+
+        public Task<bool> IsExist(TEntity entity, CancellationToken canceltoken = default) => throw new NotImplementedException();
     }
 }

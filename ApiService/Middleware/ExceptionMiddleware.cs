@@ -1,10 +1,9 @@
-﻿using ApiService.DTO.Response;
+﻿using ApiService.Config;
+using ApiService.DTO.Response;
 using Infrastructure;
 using Microsoft.IdentityModel.Tokens;
 using System.Net;
-using System.Text.Encodings.Web;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 
 namespace ApiService.Middleware
 {
@@ -30,7 +29,7 @@ namespace ApiService.Middleware
             ApiResponseDefault<object> response;
             int statusCode;
 
-            if (ex is XenniException || ex is SecurityTokenException || ex is NotImplementedException)
+            if (ex is XenniException || ex is SecurityTokenException)
             {
                 // Known business / application error
                 statusCode = (int)HttpStatusCode.BadRequest;
@@ -48,15 +47,11 @@ namespace ApiService.Middleware
 
             context.Response.StatusCode = statusCode;
 
-            var options = new JsonSerializerOptions
-            {
-                Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
-                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
-            };
-
             context.Response.ContentType = "application/json";
-            await context.Response.WriteAsync(JsonSerializer.Serialize(response, options));
+            await context.Response.WriteAsync(JsonSerializer.Serialize(response, JsonOpt.WriteOptions));
         }
+
+
 
     }
 }
