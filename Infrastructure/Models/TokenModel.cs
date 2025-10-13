@@ -8,6 +8,8 @@ namespace Infrastructure.Models
     {
         public long UserProfileId { get; set; }
         public string AccessToken { get; set; } = string.Empty;
+        public string IPv4Client { get; set; } = string.Empty;
+        public string IPv6Client { get; set; } = string.Empty;
         public string RefreshToken { get; set; } = string.Empty;
         public DateTime RefreshTokenExpireDate { get; set; }
     }
