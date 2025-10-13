@@ -1,7 +1,7 @@
 ﻿using Infrastructure.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure
+namespace Infrastructure.Database
 {
     public class XenniDB(DbContextOptions<XenniDB> options) : DbContext(options)
     {

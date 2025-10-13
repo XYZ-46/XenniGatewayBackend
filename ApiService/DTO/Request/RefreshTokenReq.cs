@@ -2,7 +2,7 @@
 
 namespace ApiService.DTO.Request
 {
-    public record RefreshTokenRequest
+    public record RefreshTokenReq
     {
         [Required]
         public string AccessToken { get; set; } = string.Empty;

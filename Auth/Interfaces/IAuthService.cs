@@ -7,5 +7,6 @@ namespace Auth.Interfaces
     {
         Task<LoginResponse> LoginAsync(UserRequestDto userLoginRequest, CancellationToken cancellationToken = default);
         Task<UserCreatedDto> RegisterAsync(UserRequestDto userRegisterRequest, CancellationToken cancellationToken = default);
+        Task<TokenDto> RefreshToken(UserRequestDto tokenRequest, CancellationToken cancellationToken = default);
     }
 }

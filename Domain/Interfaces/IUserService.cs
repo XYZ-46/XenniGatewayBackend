@@ -8,6 +8,5 @@ namespace Domain.Interfaces
         Task<bool> IsRegisteredAsync(string email, CancellationToken cancellationToken = default);
         Task<UserCreatedDto> RegisterAsync(UserProfileModel userProfile, string passwordHash, CancellationToken cancellationToken = default);
         Task<string?> GetPasswordActiveAsync(string email, CancellationToken cancellationToken = default);
-        Task GenerateToken(CancellationToken cancellationToken = default);
     }
 }

@@ -16,7 +16,21 @@ namespace Infrastructure.Repositories
             _set = _context.Set<TEntity>();
         }
 
-        public virtual async Task<TEntity?> GetByIdAsync(long id, CancellationToken canceltoken = default) => (await _set.FindAsync([id], cancellationToken: canceltoken));
+        public virtual async Task<TEntity?> GetByIdAsync(long id, CancellationToken canceltoken = default)
+            => (await _set.FindAsync([id], cancellationToken: canceltoken));
+
+        public virtual async Task<TEntity?> GetByIdActiveAsync(long id, CancellationToken canceltoken = default)
+        {
+            var query = _set.Where(z => z.Id == id && !z.IsDeleted);
+
+            // Check if the entity type supports IsActive
+            if (typeof(TEntity).IsAssignableTo(typeof(BaseActiveEntity)))
+            {
+                query = query.Where(z => ((BaseActiveEntity)(object)z).IsActive);
+            }
+
+            return await query.FirstOrDefaultAsync(canceltoken);
+        }
 
         public virtual async Task<TEntity> AddAsync(TEntity entity, CancellationToken canceltoken = default)
         {

@@ -1,7 +1,6 @@
 ﻿using ApiService.Config;
 using ApiService.DTO.Response;
-using Infrastructure;
-using Microsoft.IdentityModel.Tokens;
+using Domain.Exception;
 using System.Net;
 using System.Text.Json;
 
@@ -29,20 +28,23 @@ namespace ApiService.Middleware
             ApiResponseDefault<object> response;
             int statusCode;
 
-            if (ex is XenniException || ex is SecurityTokenException)
+            switch (ex)
             {
-                // Known business / application error
-                statusCode = (int)HttpStatusCode.BadRequest;
-                response = ApiResponseDefault<object>.Fail(ex.InnerException?.Message ?? ex.Message);
-            }
-            else
-            {
-                // Unexpected / unhandled error
-                statusCode = (int)HttpStatusCode.InternalServerError;
-                response = ApiResponseDefault<object>.Fail("Internal server error");
+                case XenniException:
+                    statusCode = (int)HttpStatusCode.BadRequest;
+                    response = ApiResponseDefault<object>.Fail(ex.InnerException?.Message ?? ex.Message);
+                    break;
 
-                // Log full details for debugging
-                logger.LogError(ex, "Unhandled exception occurred.");
+                case ReloginException:
+                    statusCode = 491;
+                    response = ApiResponseDefault<object>.Fail(ex.InnerException?.Message ?? ex.Message);
+                    break;
+
+                default:
+                    statusCode = (int)HttpStatusCode.InternalServerError;
+                    response = ApiResponseDefault<object>.Fail("Internal server error");
+                    logger.LogError(ex, "Unhandled exception occurred.");
+                    break;
             }
 
             context.Response.StatusCode = statusCode;

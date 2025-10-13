@@ -2,7 +2,7 @@
 
 namespace ApiService.DTO.Request
 {
-    public record LoginRequest
+    public record LoginReq
     {
         // email as username
         [Required]

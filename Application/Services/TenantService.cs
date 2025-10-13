@@ -1,6 +1,6 @@
 ﻿using Application.Interface;
+using Domain.Exception;
 using Domain.Services;
-using Infrastructure;
 using Infrastructure.IRepositories;
 using Infrastructure.Models;
 

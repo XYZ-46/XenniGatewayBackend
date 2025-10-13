@@ -3,8 +3,8 @@ using Auth.Interfaces;
 using Auth.Mapper;
 using Auth.Security;
 using Domain.Entities;
+using Domain.Exception;
 using Domain.Interfaces;
-using Infrastructure;
 
 namespace Auth.Services
 {
@@ -32,6 +32,14 @@ namespace Auth.Services
             var userProfile = userRegisterRequest.MapToCreateProfileModel();
 
             return await _userService.RegisterAsync(userProfile, PasswordHash, cancellationToken);
+        }
+        public async Task<TokenDto> RefreshToken(UserRequestDto tokenRequest, CancellationToken cancellationToken = default)
+        {
+
+            var token = _jwtTokenService.GenerateAccessToken(tokenRequest);
+            var refreshToken = _jwtTokenService.GenerateRefreshToken();
+
+            return new TokenDto() { AccessToken = token, RefreshToken = refreshToken };
         }
     }
 }

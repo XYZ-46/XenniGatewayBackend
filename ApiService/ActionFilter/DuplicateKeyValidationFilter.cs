@@ -1,10 +1,10 @@
-﻿using ApiService.DataValidator;
-using Infrastructure;
+﻿using ApiService.Config;
+using ApiService.DataValidator;
+using Domain.Exception;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System.Text;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 
 namespace ApiService.ActionFilter
 {
@@ -48,15 +48,7 @@ namespace ApiService.ActionFilter
                 // Step 3: Check JSON syntax with relaxed rules
                 try
                 {
-                    var options = new JsonSerializerOptions
-                    {
-                        AllowTrailingCommas = true,
-                        PropertyNameCaseInsensitive = true,
-                        ReadCommentHandling = JsonCommentHandling.Skip,
-                        NumberHandling = JsonNumberHandling.AllowReadingFromString
-                    };
-
-                    JsonSerializer.Deserialize<object>(jsonBody, options);
+                    JsonSerializer.Deserialize<object>(jsonBody, JsonOpt.ReadOptions);
                 }
                 catch (JsonException)
                 {

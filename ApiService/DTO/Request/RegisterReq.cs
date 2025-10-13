@@ -2,7 +2,7 @@
 
 namespace ApiService.DTO.Request
 {
-    public record RegisterRequest
+    public record RegisterReq
     {
         public string FullName { get; set; } = string.Empty;
         public string NickName { get; set; } = string.Empty;

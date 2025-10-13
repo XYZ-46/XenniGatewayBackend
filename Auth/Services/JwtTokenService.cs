@@ -1,6 +1,7 @@
 ﻿using Auth.Config;
 using Auth.DTO;
 using Auth.Interfaces;
+using Domain.Exception;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -66,7 +67,7 @@ namespace Auth.Services
 
             if (securityToken is not JwtSecurityToken jwtSecurityToken || !jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase))
             {
-                throw new SecurityTokenException("Invalid token");
+                throw new XenniException("Invalid token");
             }
 
             return principal;

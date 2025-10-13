@@ -1,6 +1,7 @@
 ﻿using Domain.Entities;
+using Domain.Exception;
 using Domain.Interfaces;
-using Infrastructure;
+using Infrastructure.Database;
 using Infrastructure.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -36,7 +37,6 @@ namespace Domain.Services
                 throw;
             }
 
-
             UserCreatedDto userCreated = new()
             {
                 UserId = userProfile.Id,
@@ -66,11 +66,6 @@ namespace Domain.Services
 
             var userlogin = await _userLoginService.GetByProfileIdActiveAsync(user.Id, cancellationToken);
             return userlogin?.PasswordHash;
-        }
-
-        public Task GenerateToken(CancellationToken cancellationToken = default)
-        {
-            throw new NotImplementedException();
-        }
+        }       
     }
 }
