@@ -1,8 +1,8 @@
-﻿using Infrastructure;
+﻿using ApiService.Config;
+using ApiService.DTO.Response;
+using Domain.Exception;
 using System.Net;
-using System.Text.Encodings.Web;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 
 namespace ApiService.Middleware
 {
@@ -28,33 +28,32 @@ namespace ApiService.Middleware
             ApiResponseDefault<object> response;
             int statusCode;
 
-            if (ex is XenniException)
+            switch (ex)
             {
-                // Known business / application error
-                statusCode = (int)HttpStatusCode.BadRequest;
-                response = ApiResponseDefault<object>.Fail(ex.Message);
-            }
-            else
-            {
-                // Unexpected / unhandled error
-                statusCode = (int)HttpStatusCode.InternalServerError;
-                response = ApiResponseDefault<object>.Fail("Internal server error");
+                case XenniException:
+                    statusCode = (int)HttpStatusCode.BadRequest;
+                    response = ApiResponseDefault<object>.Fail(ex.InnerException?.Message ?? ex.Message);
+                    break;
 
-                // Log full details for debugging
-                logger.LogError(ex, "Unhandled exception occurred.");
+                case ReloginException:
+                    statusCode = 491;
+                    response = ApiResponseDefault<object>.Fail(ex.InnerException?.Message ?? ex.Message);
+                    break;
+
+                default:
+                    statusCode = (int)HttpStatusCode.InternalServerError;
+                    response = ApiResponseDefault<object>.Fail("Internal server error");
+                    logger.LogError(ex, "Unhandled exception occurred.");
+                    break;
             }
 
             context.Response.StatusCode = statusCode;
 
-            var options = new JsonSerializerOptions
-            {
-                Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
-                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
-            };
-
             context.Response.ContentType = "application/json";
-            await context.Response.WriteAsync(JsonSerializer.Serialize(response, options));
+            await context.Response.WriteAsync(JsonSerializer.Serialize(response, JsonOpt.WriteOptions));
         }
+
+
 
     }
 }

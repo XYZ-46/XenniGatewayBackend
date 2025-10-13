@@ -1,12 +1,11 @@
-﻿using AbstractionBase;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Infrastructure.Models
 {
     [Table("Tenant")]
-    public class TenantModel() : BaseEntity
+    public class TenantModel() : BaseActiveEntity
     {
         public string TenantName { get; set; } = string.Empty;
-        public bool IsActive { get; set; } = true;
+        public string Description { get; set; } = string.Empty;
     }
 }

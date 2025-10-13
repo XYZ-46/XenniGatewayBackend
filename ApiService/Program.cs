@@ -1,14 +1,13 @@
 using ApiService.ActionFilter;
 using ApiService.Middleware;
 using Application;
+using Auth;
 using Domain;
 using Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.OpenApi.Models;
 using Scalar.AspNetCore;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Telemetry;
@@ -17,8 +16,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers(opt =>
 {
-    opt.Filters.Add<ValidationFilter>();
+    // validate Model Binding
     opt.Filters.Add<DuplicateKeyValidationFilter>();
+    opt.Filters.Add<ValidationFilter>();
 }).AddJsonOptions(opt =>
 {
     var options = opt.JsonSerializerOptions;
@@ -35,6 +35,9 @@ builder.Services.AddControllers(opt =>
 
     // Allow numbers to be read from strings
     options.NumberHandling = JsonNumberHandling.AllowReadingFromString;
+    
+    // Leave property names as-is (no camelCase conversion)
+    options.PropertyNamingPolicy = null;
 
     //============* write Json
     // Relax string escaping (allow special chars like single quote '12')
@@ -44,10 +47,7 @@ builder.Services.AddControllers(opt =>
     options.WriteIndented = true;
 
     // Ignore null values when serializing
-    options.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
-
-    // Leave property names as-is (no camelCase conversion)
-    options.PropertyNamingPolicy = null;
+    options.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;   
 
     // Support enums as strings
     options.Converters.Add(new JsonStringEnumConverter());
@@ -92,8 +92,7 @@ builder.Services.AddDIInfrastructure(builder.Configuration["ConnectionDB:XenniDB
 builder.Services.AddDomainDI();
 builder.Services.AddApplicationDI();
 builder.Services.AddDITelemetryServices();
-
-
+builder.Services.AddAuthDI(builder.Configuration);
 
 builder.Services.AddApiVersioning(opt =>
 {
@@ -114,7 +113,12 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.MapHealthChecks("_health");
-app.UseAuthorization();
+
+app.UseAuthentication();
+app.UseAuthorization(); 
+
 app.UseMiddleware<ExceptionMiddleware>();
+
 app.MapControllers();
+
 await app.RunAsync();

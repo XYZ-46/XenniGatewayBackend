@@ -1,4 +1,4 @@
-﻿using ApiService.Middleware;
+﻿using ApiService.DTO.Response;
 
 namespace ApiService.DataValidator
 {

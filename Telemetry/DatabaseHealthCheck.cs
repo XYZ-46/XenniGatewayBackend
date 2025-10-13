@@ -1,4 +1,4 @@
-﻿using Infrastructure;
+﻿using Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 
