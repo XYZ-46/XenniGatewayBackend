@@ -15,10 +15,10 @@ namespace Auth.Services
 
         public async Task<LoginResponse> LoginAsync(UserRequestDto userLoginRequest, CancellationToken cancellationToken = default)
         {
-            if (!_userService.IsRegisteredAsync(userLoginRequest.Email, cancellationToken).Result) throw new XenniException("Invalid credentials.");
+            if (!_userService.IsRegisteredAsync(userLoginRequest.Email, cancellationToken).Result) throw new XenniException("Invalid username or password.");
 
             var passwordHash = await _userService.GetPasswordActiveAsync(userLoginRequest.Email, cancellationToken);
-            if (!PasswordHasher.Verify(userLoginRequest.Password, passwordHash ?? "")) throw new XenniException("Invalid credentials.");
+            if (!PasswordHasher.Verify(userLoginRequest.Password, passwordHash ?? "")) throw new XenniException("Invalid username or password.");
 
             var token = _jwtTokenService.GenerateAccessToken(userLoginRequest);
             var refreshToken = _jwtTokenService.GenerateRefreshToken();

@@ -1,4 +1,4 @@
-using ApiService.ActionFilter;
+﻿using ApiService.ActionFilter;
 using ApiService.Middleware;
 using Application;
 using Auth;
@@ -13,6 +13,19 @@ using System.Text.Json.Serialization;
 using Telemetry;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Add CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngularDevClient",
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:4200") // 👈 Frontend app URL
+                  .AllowAnyHeader()
+                  .AllowAnyMethod()
+                  .AllowCredentials();
+        });
+});
 
 builder.Services.AddControllers(opt =>
 {
@@ -35,7 +48,7 @@ builder.Services.AddControllers(opt =>
 
     // Allow numbers to be read from strings
     options.NumberHandling = JsonNumberHandling.AllowReadingFromString;
-    
+
     // Leave property names as-is (no camelCase conversion)
     options.PropertyNamingPolicy = null;
 
@@ -47,7 +60,7 @@ builder.Services.AddControllers(opt =>
     options.WriteIndented = true;
 
     // Ignore null values when serializing
-    options.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;   
+    options.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
 
     // Support enums as strings
     options.Converters.Add(new JsonStringEnumConverter());
@@ -111,11 +124,14 @@ if (app.Environment.IsDevelopment())
     app.MapScalarApiReference("/docs");
 }
 
+// Enable CORS
+app.UseCors("AllowAngularDevClient");
+
 app.UseHttpsRedirection();
 app.MapHealthChecks("_health");
 
 app.UseAuthentication();
-app.UseAuthorization(); 
+app.UseAuthorization();
 
 app.UseMiddleware<ExceptionMiddleware>();
 
