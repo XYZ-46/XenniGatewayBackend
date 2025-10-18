@@ -27,5 +27,11 @@ namespace ApiService.Config
             AllowDuplicateProperties = false,
             NumberHandling = JsonNumberHandling.AllowReadingFromString,
         };
+
+        public static readonly JsonReaderOptions ReadObjOptions = new()
+        {
+            AllowTrailingCommas = true,
+            CommentHandling = JsonCommentHandling.Skip
+        };
     }
 }

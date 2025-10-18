@@ -1,5 +1,6 @@
 ﻿using ApiService.Config;
 using ApiService.DataValidator;
+using ApiService.Helper;
 using Domain.Exception;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -56,7 +57,7 @@ namespace ApiService.ActionFilter
                 }
 
                 // Step 4: Detect duplicate keys (nested + case-insensitive)
-                var duplicates = GetDuplicateKeys(jsonBody);
+                var duplicates = JsonChecker.GetDuplicateJsonKeys(jsonBody);
                 foreach (var key in duplicates)
                 {
                     validation.AddError(key, $"Duplicate field '{key}' is not allowed.");
@@ -75,78 +76,6 @@ namespace ApiService.ActionFilter
         }
 
 
-        // -----------------------------
-        // Duplicate key detection logic
-        // -----------------------------
-        private static List<string> GetDuplicateKeys(string json)
-        {
-            var duplicates = new List<string>();
-
-            try
-            {
-                var bytes = Encoding.UTF8.GetBytes(json);
-                var readerOptions = new JsonReaderOptions
-                {
-                    AllowTrailingCommas = true,
-                    CommentHandling = JsonCommentHandling.Skip
-                };
-                var reader = new Utf8JsonReader(bytes, readerOptions);
-
-                var pathStack = new Stack<string>();
-                var keyStack = new Stack<HashSet<string>>();
-                keyStack.Push(new HashSet<string>(System.StringComparer.OrdinalIgnoreCase));
-
-                while (reader.Read())
-                {
-                    switch (reader.TokenType)
-                    {
-                        case JsonTokenType.StartObject:
-                            keyStack.Push(new HashSet<string>(System.StringComparer.OrdinalIgnoreCase));
-                            break;
-
-                        case JsonTokenType.EndObject:
-                            keyStack.Pop();
-                            if (pathStack.Count > 0) pathStack.Pop();
-                            break;
-
-                        case JsonTokenType.StartArray:
-                            pathStack.Push("[]");
-                            break;
-
-                        case JsonTokenType.EndArray:
-                            pathStack.Pop();
-                            break;
-
-                        case JsonTokenType.PropertyName:
-                            string key = reader.GetString()!;
-                            string fullPath = pathStack.Count > 0 ? string.Join(".", pathStack) + "." + key : key;
-
-                            var currentKeys = keyStack.Peek();
-                            if (!currentKeys.Add(key))
-                            {
-                                duplicates.Add(fullPath);
-                            }
-
-                            pathStack.Push(key);
-                            break;
-
-                        case JsonTokenType.String:
-                        case JsonTokenType.Number:
-                        case JsonTokenType.True:
-                        case JsonTokenType.False:
-                        case JsonTokenType.Null:
-                            if (pathStack.Count > 0) pathStack.Pop();
-                            break;
-                    }
-                }
-            }
-            catch (JsonException)
-            {
-                // Ignore, already handled in main filter
-            }
-
-            return duplicates;
-        }
     }
 
 }
