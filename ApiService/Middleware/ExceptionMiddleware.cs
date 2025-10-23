@@ -30,13 +30,18 @@ namespace ApiService.Middleware
 
             switch (ex)
             {
-                case XenniException:
-                    statusCode = (int)HttpStatusCode.BadRequest;
+                case XenniNotFoundException:
+                    statusCode = 400;
                     response = ApiResponseDefault<object>.Fail(ex.InnerException?.Message ?? ex.Message);
                     break;
 
                 case ReloginException:
                     statusCode = 491;
+                    response = ApiResponseDefault<object>.Fail(ex.InnerException?.Message ?? ex.Message);
+                    break;
+
+                case XenniException:
+                    statusCode = (int)HttpStatusCode.BadRequest;
                     response = ApiResponseDefault<object>.Fail(ex.InnerException?.Message ?? ex.Message);
                     break;
 
