@@ -2,7 +2,7 @@
 
 namespace Domain.Interfaces
 {
-    public interface IUserLoginService : IServiceBase<UserLoginModel>
+    public interface IUserLoginService : IServiceDomainBase<UserLoginModel>
     {
 
         Task<UserLoginModel?> GetByProfileIdAsync(long userProfileId, CancellationToken cancellationToken = default);

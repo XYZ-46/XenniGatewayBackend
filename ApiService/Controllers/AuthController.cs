@@ -48,14 +48,14 @@ namespace ApiService.Controllers
             //var newRefreshToken = _jwtService.GenerateRefreshToken();
 
             //return new JsonResult(ApiResponseDefault<object>.Success(new { AccessToken = newAccessToken, RefreshToken = newRefreshToken }, "Login success"));
-            return Ok();
+            return Ok(new { Message = "Mantap" });
         }
 
         [HttpPost("reset-password")]
         public IActionResult ResetPassword()
         {
             // TODO: Save user in DB with hashed password
-            return Ok(new { Message = "User registered successfully" });
+            return Ok(new { Message = "Reset link sent successfully" });
         }
     }
 }

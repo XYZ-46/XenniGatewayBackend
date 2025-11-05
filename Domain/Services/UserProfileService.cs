@@ -1,10 +1,10 @@
 ﻿using Domain.Interfaces;
-using Infrastructure.IRepositories;
+using Infrastructure.Interface;
 using Infrastructure.Models;
 
 namespace Domain.Services
 {
-    public class UserProfileService(IUserProfileRepo userProfileRepo) : ServiceBase<UserProfileModel>(userProfileRepo), IUserProfileService
+    public class UserProfileService(IUserProfileRepo userProfileRepo) : ServiceDomainBase<UserProfileModel>(userProfileRepo), IUserProfileService
     {
         private readonly IUserProfileRepo _userProfileRepo = userProfileRepo;
 

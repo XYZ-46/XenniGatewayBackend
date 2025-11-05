@@ -2,7 +2,7 @@
 
 namespace Domain.Interfaces
 {
-    public interface IUserProfileService : IServiceBase<UserProfileModel>
+    public interface IUserProfileService : IServiceDomainBase<UserProfileModel>
     {
         Task<UserProfileModel?> GetByEmailAsync(string email, CancellationToken cancellationToken = default);
     }

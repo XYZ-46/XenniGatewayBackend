@@ -1,5 +1,5 @@
 ﻿using Infrastructure.Database;
-using Infrastructure.IRepositories;
+using Infrastructure.Interface;
 using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,6 +15,7 @@ namespace Infrastructure
             services.AddScoped<ITenantRepo, TenantRepository>();
             services.AddScoped<IUserLoginRepo, UserLoginRepo>();
             services.AddScoped<IUserProfileRepo, UserProfileRepo>();
+            services.AddScoped<IUserPageRepo, UserPageRepo>();
 
             return services;
         }

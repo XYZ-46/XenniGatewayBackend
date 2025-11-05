@@ -1,5 +1,5 @@
 ﻿using Infrastructure.Database;
-using Infrastructure.IRepositories;
+using Infrastructure.Interface;
 using Infrastructure.Models;
 
 namespace Infrastructure.Repositories

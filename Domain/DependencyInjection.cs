@@ -9,9 +9,10 @@ namespace Domain
         public static IServiceCollection AddDomainDI(this IServiceCollection services)
         {
 
-            services.AddScoped<IUserLoginService, UserLoginService>();
-            services.AddScoped<IUserProfileService, UserProfileService>();
-            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IUserLoginService, UserLoginService>()
+                .AddScoped<IUserProfileService, UserProfileService>()
+                .AddScoped<IUserDomainService, UserDomainService>();
+
             return services;
         }
     }

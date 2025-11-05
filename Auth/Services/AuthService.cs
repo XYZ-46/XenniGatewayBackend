@@ -8,10 +8,10 @@ using Domain.Interfaces;
 
 namespace Auth.Services
 {
-    public class AuthService(IJwtTokenService jwtTokenService, IUserService userDomainService) : IAuthService
+    public class AuthService(IJwtTokenService jwtTokenService, IUserDomainService userDomainService) : IAuthService
     {
         private readonly IJwtTokenService _jwtTokenService = jwtTokenService;
-        private readonly IUserService _userService = userDomainService;
+        private readonly IUserDomainService _userService = userDomainService;
 
         public async Task<LoginResponse> LoginAsync(UserRequestDto userLoginRequest, CancellationToken cancellationToken = default)
         {

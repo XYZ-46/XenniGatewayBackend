@@ -1,12 +1,12 @@
 ﻿using Application.Interface;
 using Domain.Exception;
 using Domain.Services;
-using Infrastructure.IRepositories;
+using Infrastructure.Interface;
 using Infrastructure.Models;
 
 namespace Application.Services
 {
-    public class TenantService(ITenantRepo tenantRepository) : ServiceBase<TenantModel>(tenantRepository), ITenantService
+    public class TenantService(ITenantRepo tenantRepository) : ServiceDomainBase<TenantModel>(tenantRepository), ITenantService
     {
         private readonly ITenantRepo _tenantRepository = tenantRepository;
 

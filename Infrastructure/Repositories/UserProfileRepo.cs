@@ -1,6 +1,6 @@
 ﻿using Infrastructure.Database;
 using Infrastructure.Entities;
-using Infrastructure.IRepositories;
+using Infrastructure.Interface;
 using Infrastructure.Models;
 using Microsoft.EntityFrameworkCore;
 
